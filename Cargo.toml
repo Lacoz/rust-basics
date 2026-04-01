@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "examples/00-axum-html",
     "examples/01-hello-ssr",
     "examples/02-counter",
     "examples/03-server-fn-example",

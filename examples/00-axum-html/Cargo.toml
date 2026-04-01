@@ -1,0 +1,12 @@
+[package]
+name = "axum_html"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "axum_html"
+path = "src/main.rs"
+
+[dependencies]
+axum = { workspace = true }
+tokio = { workspace = true }

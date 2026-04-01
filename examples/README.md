@@ -1,18 +1,25 @@
 # Príklady v tomto workspace
 
-Všetky tri sú **SSR + hydratácia**: HTML prvýkrát zostaví server (Axum + Leptos), potom rovnaká aplikácia na klientovi (WASM) pre interaktivitu. Build rieši **`cargo leptos`** (nie čisté `cargo run`, ak chceš WASM a statické súbory).
+- **`00-axum-html`** — čistý **Axum**: HTML alebo `text/plain` zo servera, **bez JS a bez WASM**; vhodné na `curl`.
+- **`01` … `03`** — **SSR + hydratácia** (Axum + Leptos): build cez **`cargo leptos`** (WASM + statické súbory).
 
 ## Prehľad
 
-Každý priečinok má vlastný **`README.md`** s popisom všetkých súborov a sekcií (`Cargo.toml`, `src/*`, `style/`, `public/`, metadata pre cargo-leptos).
+Každý priečinok má vlastný **`README.md`**. U Leptos príkladov popisuje aj `style/`, `public/` a `[package.metadata.leptos]`.
 
 | # | Priečinok | Dokumentácia | O čom to je |
 |---|-----------|--------------|-------------|
-| 1 | `01-hello-ssr` | [README.md](01-hello-ssr/README.md) | Minimálny shell: router, jedna stránka, bez interaktívneho stavu. |
+| 0 | `00-axum-html` | [README.md](00-axum-html/README.md) | Len Axum: dynamické HTML + `/text` pre `curl`; žiadny frontend JS. |
+| 1 | `01-hello-ssr` | [README.md](01-hello-ssr/README.md) | Minimálny Leptos shell: router, jedna stránka, bez interaktívneho stavu. |
 | 2 | `02-counter` | [README.md](02-counter/README.md) | Reaktívny stav (`RwSignal`) — tlačidlá menia číslo. |
 | 3 | `03-server-fn-example` | [README.md](03-server-fn-example/README.md) | `#[server]` funkcia volaná z UI — async na serveri, výsledok späť do komponentu. |
 
 ## Čo porovnať s tým, čo už poznáš
+
+### `00-axum-html`
+
+- **PHP `phpinfo()` / jedna akcia:** jeden handler zostaví odpoveď na serveri; klient len zobrazí HTML alebo si prečíta text v termináli (`curl`).
+- **FastAPI:** `GET` route vracajúca reťazec — analogicky `html_info` / `plain_info`.
 
 ### `01-hello-ssr`
 
@@ -35,6 +42,9 @@ Každý priečinok má vlastný **`README.md`** s popisom všetkých súborov a 
 ## Spustenie
 
 ```bash
+cd examples/00-axum-html && cargo run -p axum_html
+# curl -s http://127.0.0.1:3090/text
+
 cd examples/01-hello-ssr && cargo leptos watch
-# alebo 02-counter, 03-server-fn-example — každý má vlastný port v Cargo.toml ([package.metadata.leptos] site-addr)
+# alebo 02-counter, 03-server-fn-example — porty v [package.metadata.leptos] site-addr
 ```
