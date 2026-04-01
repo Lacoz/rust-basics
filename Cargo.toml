@@ -1,0 +1,26 @@
+[workspace]
+resolver = "2"
+members = [
+    "examples/01-hello-ssr",
+    "examples/02-counter",
+    "examples/03-server-fn-example",
+]
+
+[workspace.dependencies]
+leptos = { version = "0.8" }
+leptos_meta = { version = "0.8" }
+leptos_router = { version = "0.8" }
+leptos_axum = { version = "0.8" }
+axum = { version = "0.8" }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+wasm-bindgen = "0.2"
+console_error_panic_hook = "0.1"
+serde = { version = "1", features = ["derive"] }
+
+# Used by cargo-leptos / Leptos WASM release builds (member [profile.*] is ignored in workspace)
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
